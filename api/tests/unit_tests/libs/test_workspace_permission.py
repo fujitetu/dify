@@ -1,5 +1,6 @@
-import pytest
 from unittest.mock import Mock, patch
+
+import pytest
 from werkzeug.exceptions import Forbidden
 
 from libs.workspace_permission import (
@@ -42,9 +43,7 @@ class TestWorkspacePermissionHelper:
     @patch("libs.workspace_permission.EnterpriseService")
     @patch("libs.workspace_permission.dify_config")
     @patch("libs.workspace_permission.FeatureService")
-    def test_enterprise_blocks_invite_when_disabled(
-        self, mock_feature_service, mock_config, mock_enterprise_service
-    ):
+    def test_enterprise_blocks_invite_when_disabled(self, mock_feature_service, mock_config, mock_enterprise_service):
         """Enterprise edition should block invitations when workspace policy is False."""
         mock_config.ENTERPRISE_ENABLED = True
         mock_features = Mock()
@@ -62,9 +61,7 @@ class TestWorkspacePermissionHelper:
     @patch("libs.workspace_permission.EnterpriseService")
     @patch("libs.workspace_permission.dify_config")
     @patch("libs.workspace_permission.FeatureService")
-    def test_enterprise_allows_invite_when_enabled(
-        self, mock_feature_service, mock_config, mock_enterprise_service
-    ):
+    def test_enterprise_allows_invite_when_enabled(self, mock_feature_service, mock_config, mock_enterprise_service):
         """Enterprise edition should allow invitations when workspace policy is True."""
         mock_config.ENTERPRISE_ENABLED = True
         mock_features = Mock()
@@ -98,9 +95,7 @@ class TestWorkspacePermissionHelper:
     @patch("libs.workspace_permission.EnterpriseService")
     @patch("libs.workspace_permission.dify_config")
     @patch("libs.workspace_permission.FeatureService")
-    def test_enterprise_blocks_transfer_when_disabled(
-        self, mock_feature_service, mock_config, mock_enterprise_service
-    ):
+    def test_enterprise_blocks_transfer_when_disabled(self, mock_feature_service, mock_config, mock_enterprise_service):
         """Enterprise edition should block transfer when workspace policy is False."""
         mock_config.ENTERPRISE_ENABLED = True
         mock_features = Mock()

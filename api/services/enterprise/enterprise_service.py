@@ -11,7 +11,8 @@ class WebAppSettings(BaseModel):
         default="private",
         alias="accessMode",
     )
-    
+
+
 class WorkspacePermission(BaseModel):
     workspace_id: str = Field(
         description="The ID of the workspace.",
@@ -59,13 +60,13 @@ class EnterpriseService:
             return datetime.fromisoformat(data)
         except ValueError as e:
             raise ValueError(f"Invalid date format: {data}") from e
-        
+
     class WorkspacePermission:
         @classmethod
         def get_permission(cls, workspace_id: str):
             params = {"id": workspace_id}
             data = EnterpriseRequest.send_request("GET", "/workspaces/permission", params=params)
-            if not data or not "permission" in data:
+            if not data or "permission" not in data:
                 raise ValueError("No data found.")
             return WorkspacePermission.model_validate(data["permission"])
 
