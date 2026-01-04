@@ -14,8 +14,11 @@ from core.workflow.graph import NodeFactory
 from core.workflow.nodes.base.node import Node
 from core.workflow.nodes.code.code_node import CodeNode
 from core.workflow.nodes.code.limits import CodeNodeLimits
-from core.workflow.nodes.http_request.executor import FileManagerProtocol, HttpClientProtocol
 from core.workflow.nodes.http_request.node import HttpRequestNode
+from core.workflow.nodes.http_request.executor import (
+    FileManagerProtocol,
+    HttpClientProtocol,
+)
 from libs.typing import is_str, is_str_dict
 
 from .node_mapping import LATEST_VERSION, NODE_TYPE_CLASSES_MAPPING
@@ -23,7 +26,6 @@ from .node_mapping import LATEST_VERSION, NODE_TYPE_CLASSES_MAPPING
 if TYPE_CHECKING:
     from core.workflow.entities import GraphInitParams
     from core.workflow.runtime import GraphRuntimeState
-
 
 @final
 class DifyNodeFactory(NodeFactory):
