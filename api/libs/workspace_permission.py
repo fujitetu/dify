@@ -23,7 +23,8 @@ def check_workspace_member_invite_permission(workspace_id: str) -> None:
     Check if workspace allows member invitations at both billing and policy levels.
 
     Checks performed:
-    1. Enterprise policy level - Admin-configured workspace permission
+    1. Billing/plan level - For future expansion (currently no plan-level restriction)
+    2. Enterprise policy level - Admin-configured workspace permission
 
     Args:
         workspace_id: The workspace ID to check permissions for
