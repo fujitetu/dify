@@ -61,7 +61,7 @@ class EnterpriseService:
         except ValueError as e:
             raise ValueError(f"Invalid date format: {data}") from e
 
-    class WorkspacePermission:
+    class WorkspacePermissionService:
         @classmethod
         def get_permission(cls, workspace_id: str):
             params = {"id": workspace_id}

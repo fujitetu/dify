@@ -22,7 +22,7 @@ class TestWorkspacePermissionHelper:
         check_workspace_member_invite_permission("test-workspace-id")
 
         # EnterpriseService should NOT be called in community edition
-        mock_enterprise_service.WorkspacePermission.get_permission.assert_not_called()
+        mock_enterprise_service.WorkspacePermissionService.get_permission.assert_not_called()
 
     @patch("libs.workspace_permission.dify_config")
     @patch("libs.workspace_permission.FeatureService")
@@ -46,12 +46,12 @@ class TestWorkspacePermissionHelper:
 
         mock_permission = Mock()
         mock_permission.allow_member_invite = False
-        mock_enterprise_service.WorkspacePermission.get_permission.return_value = mock_permission
+        mock_enterprise_service.WorkspacePermissionService.get_permission.return_value = mock_permission
 
         with pytest.raises(Forbidden, match="Workspace policy prohibits member invitations"):
             check_workspace_member_invite_permission("test-workspace-id")
 
-        mock_enterprise_service.WorkspacePermission.get_permission.assert_called_once_with("test-workspace-id")
+        mock_enterprise_service.WorkspacePermissionService.get_permission.assert_called_once_with("test-workspace-id")
 
     @patch("libs.workspace_permission.EnterpriseService")
     @patch("libs.workspace_permission.dify_config")
@@ -61,12 +61,12 @@ class TestWorkspacePermissionHelper:
 
         mock_permission = Mock()
         mock_permission.allow_member_invite = True
-        mock_enterprise_service.WorkspacePermission.get_permission.return_value = mock_permission
+        mock_enterprise_service.WorkspacePermissionService.get_permission.return_value = mock_permission
 
         # Should not raise
         check_workspace_member_invite_permission("test-workspace-id")
 
-        mock_enterprise_service.WorkspacePermission.get_permission.assert_called_once_with("test-workspace-id")
+        mock_enterprise_service.WorkspacePermissionService.get_permission.assert_called_once_with("test-workspace-id")
 
     @patch("libs.workspace_permission.EnterpriseService")
     @patch("libs.workspace_permission.dify_config")
@@ -82,7 +82,7 @@ class TestWorkspacePermissionHelper:
             check_workspace_owner_transfer_permission("test-workspace-id")
 
         # Enterprise service should NOT be called since billing plan already blocks
-        mock_enterprise_service.WorkspacePermission.get_permission.assert_not_called()
+        mock_enterprise_service.WorkspacePermissionService.get_permission.assert_not_called()
 
     @patch("libs.workspace_permission.EnterpriseService")
     @patch("libs.workspace_permission.dify_config")
@@ -96,12 +96,12 @@ class TestWorkspacePermissionHelper:
 
         mock_permission = Mock()
         mock_permission.allow_owner_transfer = False  # Workspace policy blocks
-        mock_enterprise_service.WorkspacePermission.get_permission.return_value = mock_permission
+        mock_enterprise_service.WorkspacePermissionService.get_permission.return_value = mock_permission
 
         with pytest.raises(Forbidden, match="Workspace policy prohibits ownership transfer"):
             check_workspace_owner_transfer_permission("test-workspace-id")
 
-        mock_enterprise_service.WorkspacePermission.get_permission.assert_called_once_with("test-workspace-id")
+        mock_enterprise_service.WorkspacePermissionService.get_permission.assert_called_once_with("test-workspace-id")
 
     @patch("libs.workspace_permission.EnterpriseService")
     @patch("libs.workspace_permission.dify_config")
@@ -117,12 +117,12 @@ class TestWorkspacePermissionHelper:
 
         mock_permission = Mock()
         mock_permission.allow_owner_transfer = True  # Workspace policy allows
-        mock_enterprise_service.WorkspacePermission.get_permission.return_value = mock_permission
+        mock_enterprise_service.WorkspacePermissionService.get_permission.return_value = mock_permission
 
         # Should not raise
         check_workspace_owner_transfer_permission("test-workspace-id")
 
-        mock_enterprise_service.WorkspacePermission.get_permission.assert_called_once_with("test-workspace-id")
+        mock_enterprise_service.WorkspacePermissionService.get_permission.assert_called_once_with("test-workspace-id")
 
     @patch("libs.workspace_permission.logger")
     @patch("libs.workspace_permission.EnterpriseService")
@@ -132,7 +132,7 @@ class TestWorkspacePermissionHelper:
         mock_config.ENTERPRISE_ENABLED = True
 
         # Simulate enterprise service error
-        mock_enterprise_service.WorkspacePermission.get_permission.side_effect = Exception("Service unavailable")
+        mock_enterprise_service.WorkspacePermissionService.get_permission.side_effect = Exception("Service unavailable")
 
         # Should not raise (fail-open)
         check_workspace_member_invite_permission("test-workspace-id")

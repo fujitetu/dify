@@ -35,7 +35,7 @@ def check_workspace_member_invite_permission(workspace_id: str) -> None:
     # Check enterprise workspace policy level (only if enterprise enabled)
     if dify_config.ENTERPRISE_ENABLED:
         try:
-            permission = EnterpriseService.WorkspacePermission.get_permission(workspace_id)
+            permission = EnterpriseService.WorkspacePermissionService.get_permission(workspace_id)
             if not permission.allow_member_invite:
                 raise Forbidden("Workspace policy prohibits member invitations")
         except Forbidden:
@@ -65,7 +65,7 @@ def check_workspace_owner_transfer_permission(workspace_id: str) -> None:
     # Check enterprise workspace policy level (only if enterprise enabled)
     if dify_config.ENTERPRISE_ENABLED:
         try:
-            permission = EnterpriseService.WorkspacePermission.get_permission(workspace_id)
+            permission = EnterpriseService.WorkspacePermissionService.get_permission(workspace_id)
             if not permission.allow_owner_transfer:
                 raise Forbidden("Workspace policy prohibits ownership transfer")
         except Forbidden:

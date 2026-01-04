@@ -308,7 +308,7 @@ class WorkspacePermissionApi(Resource):
             raise ValueError("No current tenant")
 
         # Get workspace permissions from enterprise service
-        permission = EnterpriseService.WorkspacePermission.get_permission(current_tenant_id)
+        permission = EnterpriseService.WorkspacePermissionService.get_permission(current_tenant_id)
 
         return {
             "workspace_id": permission.workspace_id,
